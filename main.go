@@ -1,16 +1,29 @@
 package main
 
 import (
-	"log"
+	"encoding/json"
 	"net/http"
+	"time"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-
-	log.Printf("{yolo:%v}", 12)
+type Todo struct {
+	Name      string
+	Completed bool
+	Due       time.Time
 }
 
+type Todos []Todo
+
 func main() {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", TodoIndex)
 	http.ListenAndServe(":8080", nil)
+}
+
+func TodoIndex(w http.ResponseWriter, r *http.Request) {
+	todos := Todos{
+		Todo{Name: "Write presentation"},
+		Todo{Name: "Host meetup"},
+	}
+
+	json.NewEncoder(w).Encode(todos)
 }

@@ -1,23 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	title := "fuck yeah bitches Jenkins X golang http example"
 
-	from := ""
-	if r.URL != nil {
-		from = r.URL.String()
-	}
-	if from != "/favicon.ico" {
-		log.Printf("title: %s\n", title)
-	}
-
-	fmt.Fprintf(w, "A GREAT Hello from:  "+title+"\n")
+	log.Printf("{yolo:%v}", 12)
 }
 
 func main() {
